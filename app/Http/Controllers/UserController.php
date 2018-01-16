@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+//use App\User;
+use App\Repositories\UserRepositoryInterface;
 
 class UserController extends Controller
 {
+    protected $userRepository;
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
     public function index()
     {
-        $users = User::all();
+        $users = $this->userRepository->index();
         return view('user.index',compact('users',$users));
     }
 
@@ -38,21 +44,21 @@ class UserController extends Controller
                 'password.min' => 'Mật khẩu cần ít nhất 6 kí tự',
                 'password.max' => 'Mật khẩu không quá 20 kí tự '
             ]);
-        $user = User::create($request->all());
+        $data = $request->all();
+        $this->userRepository->store($data);
         return redirect('user')->with('mess','Thêm thành công');
     }
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = $this->userRepository->show($id);
         return view('user.edit',[
             'user' => $user
         ]);
     }
     public function edit($id)
     {
-        $user = User::find($id);
-
+        $user = $this->userRepository->show($id);
         return view('user.edit', compact('user','id'));
     }
 
@@ -78,14 +84,14 @@ class UserController extends Controller
                 'password.min' => 'Mật khẩu cần ít nhất 6 kí tự',
                 'password.max' => 'Mật khẩu không quá 20 kí tự '
             ]);
-        $user = User::find($id)->update($request->all());
+        $data = $request->all();
+        $this->userRepository->update($data,$id);
         return redirect('user')->with('mess','Sửa thành công');
     }
 
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
+        $this->userRepository->delete($id);
         return redirect('user')->with('mess','Xóa thành công');
     }
 }
