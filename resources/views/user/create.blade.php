@@ -34,6 +34,7 @@
         <label for="email"> Email </label>
         <input type="email" class="form-control" name="email"/>
     </div>
+
     <div class="form-group">
         <label for="email"> Password </label>
         <input type="password" class="form-control" name="password"/>
@@ -45,6 +46,15 @@
             {{--<input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>--}}
         {{--</div>--}}
     {{--</div>--}}
+    <div class="form-group">
+        <label for="tel"> Telephone </label>
+        <input type="text" class="form-control" name="tel"/>
+    </div>
+    <div class="form-group">
+        <label for="birthday"> Birthday </label>
+        <input type="date" class="form-control" name="birthday"/>
+    </div>
+
     <div class="form-group">
         <div class="col-md-6 col-md-offset-4">
             <button type="submit" class="btn btn-primary">

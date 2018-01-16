@@ -29,7 +29,7 @@ class UserController extends Controller
         $this->validate($request,
             [
                 'name' => 'required|min:5|max:255',
-                'email'=> 'required|email|max:100',
+                'email'=> 'required|email',
                 'password' => 'required|min:6,|max:20'
             ]
             ,
@@ -39,14 +39,13 @@ class UserController extends Controller
                 'name.max' => 'Tên không quá 255 kí tự ',
                 'email.email' => 'Không đúng định dạng email',
                 'email.required'=> 'Không được để trống email',
-                'email.max' => 'Email không quá 100 kí tự',
                 'password.required' => 'Không được để trống mật khẩu',
                 'password.min' => 'Mật khẩu cần ít nhất 6 kí tự',
                 'password.max' => 'Mật khẩu không quá 20 kí tự '
             ]);
         $data = $request->all();
         $this->userRepository->store($data);
-        return redirect('user')->with('mess','Thêm thành công');
+        return redirect()->action('UserController@index')->with('mess','Thêm thành công');
     }
 
     public function show($id)
@@ -66,8 +65,8 @@ class UserController extends Controller
     {
         $this->validate($request,
             [
-                'name' => 'required|min:5|max:255|unique:users,name',
-                'email'=> 'required|email|max:100|unique:users,email',
+                'name' => 'required|min:5|max:255',
+                'email'=> 'required|email|max:100',
                 'password' => 'required|min:6,|max:20'
             ]
             ,
@@ -75,11 +74,11 @@ class UserController extends Controller
                 'name.required' => 'Không được để trống tên',
                 'name.min' => 'Tên cần ít nhất 5 kí tự',
                 'name.max' => 'Tên không quá 255 kí tự ',
-                'name.unique' => 'Tên đã tồn tại ',
+//                'name.unique' => 'Tên đã tồn tại ',
                 'email.email' => 'Không đúng định dạng email',
                 'email.required'=> 'Không được để trống email',
                 'email.max' => 'Email không quá 100 kí tự',
-                'email.unique' => 'Email đã được dùng',
+//                'email.unique' => 'Email đã được dùng',
                 'password.required' => 'Không được để trống mật khẩu',
                 'password.min' => 'Mật khẩu cần ít nhất 6 kí tự',
                 'password.max' => 'Mật khẩu không quá 20 kí tự '

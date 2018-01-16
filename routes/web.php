@@ -15,12 +15,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 //Route::resource('user','UserController');
-Route::get('user','UserController@index');
-Route::get('user/create','UserController@create');
-Route::post('user/create','UserController@store');
-Route::get('user/{id}/edit','UserController@edit');
-Route::patch('user/{id}/edit','UserController@update');
-Route::delete('user/{id}/delete','UserController@destroy');
+Route::get('user','UserController@index')->middleware('test');
+Route::get('user/create','UserController@create')->middleware('test');
+Route::post('user/create','UserController@store')->middleware('test');
+Route::get('user/{id}/edit','UserController@edit')->middleware('test');
+Route::patch('user/{id}/edit','UserController@update')->middleware('test');
+Route::delete('user/{id}/delete','UserController@destroy')->middleware('test');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('testlogin','LoginController@getLogin');
+Route::post('testlogin','LoginController@postLogin');
+Route::get('testlogout','LoginController@getLogout');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+//

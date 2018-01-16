@@ -30,6 +30,12 @@
             <label for="email"> Password </label>
             <input type="password" class="form-control" name="password"/>
         </div>
+        <div class="col-sm-10">
+            <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" placeholder="tel" name="tel" value="{{$user->tel}}">
+        </div>
+        <div class="col-sm-10">
+            <input type="date" class="form-control form-control-lg" id="lgFormGroupInput" placeholder="birthday" name="birthday" value="{{$user->birthday}}">
+        </div>
         {{--<div class="form-group">--}}
             {{--<label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>--}}
 

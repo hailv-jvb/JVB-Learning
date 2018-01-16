@@ -10,6 +10,8 @@ namespace App\Repositories\Eloquent;
 
 use App\User;
 use App\Repositories\UserRepositoryInterface;
+use Illuminate\Support\Facades\Crypt;
+
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -28,11 +30,14 @@ class UserRepository implements UserRepositoryInterface
     }
     public function store($data)
     {
+//        dd($data);
+        $data['password'] = bcrypt($data['password']);
         return User::create($data);
     }
 
     public function update($data,$id)
     {
+        $data['password'] = bcrypt($data['password']);
         return User::find($id)->update($data);
     }
 
