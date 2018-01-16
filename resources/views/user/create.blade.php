@@ -1,10 +1,24 @@
 <div class="row">
+
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Add New User</h2>
         </div>
+        @if(count($errors) >0)
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $err)
+                    {{$err}}<br>
+                    @endforeach
+            </div>
+            @endif
+        @if(session('mess'))
+            <div class="alert alert-success">
+                {{session('mess')}}
+            </div>
+            @endif
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ action('UserController@index') }}"> Back</a>
+{{--            <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>--}}
         </div>
     </div>
 </div>

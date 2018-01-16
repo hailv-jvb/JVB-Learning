@@ -14,8 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('user','UserController');
-
+//Route::resource('user','UserController');
+Route::get('user','UserController@index');
+Route::get('user/create','UserController@create');
+Route::post('user/create','UserController@store');
+Route::get('user/{id}/edit','UserController@edit');
+Route::patch('user/{id}/edit','UserController@update');
+Route::delete('user/{id}/delete','UserController@destroy');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

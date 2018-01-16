@@ -20,8 +20,26 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request,
+            [
+                'name' => 'required|min:5|max:255',
+                'email'=> 'required|email|max:100',
+                'password' => 'required|min:6,|max:20'
+            ]
+            ,
+            [
+                'name.required' => 'Không được để trống tên',
+                'name.min' => 'Tên cần ít nhất 5 kí tự',
+                'name.max' => 'Tên không quá 255 kí tự ',
+                'email.email' => 'Không đúng định dạng email',
+                'email.required'=> 'Không được để trống email',
+                'email.max' => 'Email không quá 100 kí tự',
+                'password.required' => 'Không được để trống mật khẩu',
+                'password.min' => 'Mật khẩu cần ít nhất 6 kí tự',
+                'password.max' => 'Mật khẩu không quá 20 kí tự '
+            ]);
         $user = User::create($request->all());
-        return redirect()->route('user.index');
+        return redirect('user')->with('mess','Thêm thành công');
     }
 
     public function show($id)
@@ -40,14 +58,34 @@ class UserController extends Controller
 
     public function update(Request $request,$id)
     {
+        $this->validate($request,
+            [
+                'name' => 'required|min:5|max:255|unique:users,name',
+                'email'=> 'required|email|max:100|unique:users,email',
+                'password' => 'required|min:6,|max:20'
+            ]
+            ,
+            [
+                'name.required' => 'Không được để trống tên',
+                'name.min' => 'Tên cần ít nhất 5 kí tự',
+                'name.max' => 'Tên không quá 255 kí tự ',
+                'name.unique' => 'Tên đã tồn tại ',
+                'email.email' => 'Không đúng định dạng email',
+                'email.required'=> 'Không được để trống email',
+                'email.max' => 'Email không quá 100 kí tự',
+                'email.unique' => 'Email đã được dùng',
+                'password.required' => 'Không được để trống mật khẩu',
+                'password.min' => 'Mật khẩu cần ít nhất 6 kí tự',
+                'password.max' => 'Mật khẩu không quá 20 kí tự '
+            ]);
         $user = User::find($id)->update($request->all());
-        return redirect()->route('user.index');
+        return redirect('user')->with('mess','Sửa thành công');
     }
 
     public function destroy($id)
     {
         $user = User::find($id);
         $user->delete();
-        return redirect()->route('user.index');
+        return redirect('user')->with('mess','Xóa thành công');
     }
 }

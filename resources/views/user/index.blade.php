@@ -1,6 +1,7 @@
 
 <div class="pull-right">
-    <a class="btn btn-success" href="{{ route('user.create') }}"> Create </a>
+    {{--<a class="btn btn-success" href="{{ route('user.create') }}"> Create </a>--}}
+    <a class="btn btn-success" href="{{ action('UserController@create') }}"> Create </a>
 </div>
 <table>
     <tr>
@@ -16,9 +17,11 @@
             <td>{{ $user->email}}</td>
             <td>
                 <a href="{!! action('UserController@edit', $user->id) !!}" class="btn btn-block btn-primary btn-sm">Edit</a>
-            {!! Form::open(['method' => 'DELETE','route' => ['user.destroy', $user->id],'style'=>'display:inline']) !!}
+{{--            {!! Form::open(['method' => 'DELETE','route' => ['user.destroy', $user->id],'style'=>'display:inline']) !!}--}}
+            {!! Form::open(['method' => 'DELETE','action' => ['UserController@destroy',$user->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
             {!! Form::close() !!}
+            </td>
         </tr>
     @endforeach
 </table>

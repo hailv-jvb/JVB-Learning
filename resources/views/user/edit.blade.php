@@ -2,6 +2,18 @@
     <form method="post" action="{{action('UserController@update', $user->id)}}">
         <div class="form-group row">
             {{csrf_field()}}
+            @if(count($errors) >0)
+                <div class="alert alert-danger">
+                    @foreach($errors->all() as $err)
+                        {{$err}}<br>
+                    @endforeach
+                </div>
+            @endif
+            @if(session('mess'))
+                <div class="alert alert-success">
+                    {{session('mess')}}
+                </div>
+            @endif
             <input name="_method" type="hidden" value="PATCH">
             <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Name</label>
             <div class="col-sm-10">
